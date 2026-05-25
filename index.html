@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Água Justa ⚖️💧</title>
+
+<link rel="icon" type="image/png" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="manifest" href="manifest.json">
+<meta name="msapplication-navbutton-color" content="#0B3D91">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#0B3D91">
+
+<meta property="og:title" content="Água Justa ⚖️💧">
+<meta property="og:description" content="Ferramenta independente de apoio à análise preliminar de consumo, cadastro e faturamento.">
+<meta property="og:image" content="icon-512.png">
+<meta property="og:type" content="website">
+
+<style>
+
+body{
+margin:0;
+font-family:Arial,sans-serif;
+background:linear-gradient(180deg,#dbeafe,#eff6ff,#f8fafc);
+color:#18323d;
+}
+
+.container{
+max-width:520px;
+margin:auto;
+padding:16px;
+background:#ffffff;
+box-shadow:0 0 20px rgba(0,0,0,0.10);
+min-height:100vh;
+}
+
+.tela{
+display:none;
+animation:fade .3s;
+}
+
+.tela.ativa{
+display:block;
+}
+
+@keyframes fade{
+from{
+opacity:0;
+transform:translateY(8px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+.topo-app{
+display:flex;
+align-items:center;
+gap:12px;
+margin-bottom:18px;
+}
+
+.logo-app{
+width:72px;
+height:72px;
+border-radius:50%;
+object-fit:cover;
+box-shadow:0 4px 12px rgba(0,0,0,0.18);
+background:#0B3D91;
+}
+
+.titulo-app h1{
+margin:0;
+font-size:28px;
+color:#0B3D91;
+}
+
+.titulo-app p{
+margin-top:5px;
+font-size:14px;
+color:#486581;
+line-height:1.4;
+}
+
+.etapas{
+display:flex;
+align-items:center;
+justify-content:center;
+margin:18px 0;
+}
+
+.etapa{
+width:34px;
+height:34px;
+border-radius:50%;
+background:#cbd5e1;
+color:#fff;
+display:flex;
+align-items:center;
+justify-content:center;
+font-weight:bold;
+font-size:14px;
+}
+
+.etapa.ativa{
+background:#0B3D91;
+}
+
+.linha{
+height:4px;
+width:35px;
+background:#cbd5e1;
+}
+
+h2,h3{
+text-align:center;
+color:#0B3D91;
+}
+
+p{
+line-height:1.5;
+}
+
+.campo{
+display:flex;
+flex-direction:column;
+margin-bottom:12px;
+}
+
+label{
+margin-bottom:5px;
+font-weight:bold;
+color:#1d3557;
+}
+
+input,
+select,
+textarea{
+padding:13px;
+font-size:16px;
+border-radius:12px;
+border:1px solid #bdd9c7;
+background:#fff;
+outline:none;
+box-sizing:border-box;
+transition:.2s;
+width:100%;
+min-height:48px;
+}
+
+textarea{
+resize:vertical;
+min-height:80px;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+border-color:#0B3D91;
+box-shadow:0 0 8px rgba(11,61,145,0.25);
+}
+
+button{
+width:100%;
+padding:14px;
+margin-top:10px;
+border:none;
+border-radius:12px;
+background:linear-gradient(135deg,#0B3D91,#1f8f4c);
+color:#fff;
+font-size:16px;
+font-weight:bold;
+cursor:pointer;
+transition:.2s;
+box-shadow:0 4px 10px rgba(0,0,0,0.18);
+min-height:52px;
+}
+
+button:hover{
+transform:scale(1.01);
+opacity:.96;
+}
+
+.nav{
+display:flex;
+gap:10px;
+}
+
+.box{
+background:#fff;
+padding:12px;
+border-left:5px solid #0B3D91;
+border-radius:12px;
+margin-top:12px;
+box-shadow:0 4px 12px rgba(0,0,0,0.08);
+word-break:break-word;
+}
+
+.verde{
+background:#e8f8ee;
+border-left:5px solid #1f8f4c;
+}
+
+.amarelo{
+background:#fff8dc;
+border-left:5px solid #d6a93b;
+}
+
+.vermelho{
+background:#ffeaea;
+border-left:5px solid #c0392b;
+}
+
+.pixbox{
+background:#102a43;
+color:#8dffbf;
+padding:10px;
+font-size:12px;
+border-radius:8px;
+word-break:break-all;
+margin-top:10px;
+}
+
+.rodape{
+text-align:center;
+font-size:13px;
+margin-top:30px;
+color:#486581;
+}
+
+.cabecalho-relatorio{
+display:flex;
+align-items:center;
+gap:14px;
+margin-bottom:18px;
+}
+
+.logo-relatorio{
+width:78px;
+height:78px;
+border-radius:50%;
+object-fit:cover;
+}
+
+.carimbo{
+border:3px dashed #0B3D91;
+padding:10px;
+text-align:center;
+font-weight:bold;
+color:#0B3D91;
+transform:rotate(-8deg);
+margin-top:10px;
+border-radius:10px;
+font-size:18px;
+}
+
+.bloqueio{
+background:#eff6ff;
+border:1px solid #bfd3f8;
+padding:14px;
+border-radius:12px;
+margin-top:14px;
+text-align:center;
+font-weight:bold;
+color:#0B3D91;
+}
+
+@media print{
+
+body{
+background:white;
+}
+
+button,
+.nav{
+display:none;
+}
+
+.container{
+box-shadow:none;
+padding:0;
+max-width:100%;
+}
+
+.box{
+break-inside:avoid;
+page-break-inside:avoid;
+}
+
+#t5{
+display:block !important;
+}
+
+.tela:not(#t5){
+display:none !important;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- TELA 1 -->
+<div class="tela ativa" id="t1">
+
+<div class="topo-app">
+
+<img 
+src="logo-agua-justa.png"class="logo-app"
+alt="Logo Água Justa"
+>
+
+<div class="titulo-app">
+
+<h1>ÁGUA JUSTA ⚖️💧</h1>
+
+<p>
+Ferramenta independente de apoio
+à análise preliminar de consumo,
+cadastro e faturamento.
+</p>
+
+</div>
+
+</div>
+
+<div class="etapas">
+
+<div class="etapa ativa">1</div>
+<div class="linha"></div>
+
+<div class="etapa">2</div>
+<div class="linha"></div>
+
+<div class="etapa">3</div>
+<div class="linha"></div>
+
+<div class="etapa">4</div>
+
+</div>
+
+<div class="box">
+
+📉 Identifica possíveis divergências de consumo e cadastro<br><br>
+
+🚽 Verifique cobrança de esgoto<br><br>
+
+🏠 Confira economias cadastradas<br><br>
+
+🔎 Detecte inconsistências técnicas<br><br>
+
+📊 Entenda se o valor está acima do esperado
+
+</div>
+
+<button onclick="nextTela(2)">
+Iniciar análise
+</button>
+
+<button onclick="nextTela(6)">
+📌 Serviços úteis
+</button>
+
+<div class="rodape">
+
+👨🏽‍🔧 Aliomar Alves dos Santos<br>
+Especialista em Saneamento Básico
+
+</div>
+
+</div>
+
+<!-- TELA 2 -->
+<div class="tela" id="t2">
+
+<h3>Dados principais</h3>
+
+<div class="campo">
+<label>Regional Sabesp</label>
+
+<select id="regional">
+<option value="MC">MC / ML / MO / MS</option>
+<option value="MN">MN</option>
+<option value="RSRN">RS / RN</option>
+<option value="RR">RR</option>
+<option value="RARB">RA / RB / RG / RJ / RM / RT</option>
+<option value="RV">RV</option>
+</select>
+</div>
+
+<div class="campo">
+<label>Tipo de ligação</label>
+
+<select id="ligacao">
+<option value="agua">Água</option>
+<option value="agua_esgoto">Água e Esgoto</option>
+<option value="esgoto">Esgoto</option>
+</select>
+</div>
+
+<div class="campo">
+<label>Categoria</label>
+
+<select id="categoria">
+<option value="residencial_normal">Residencial Normal</option>
+<option value="residencial_social">Residencial Social</option>
+<option value="residencial_vulneravel">Residencial Vulnerável</option>
+<option value="comercial">Comercial</option>
+<option value="comercial_ongs">Comercial ONG</option>
+<option value="industrial">Industrial</option>
+<option value="orgaos_publicos">Órgãos Públicos</option>
+</select>
+</div>
+
+<div class="campo">
+<label>Destino do esgoto</label>
+
+<select id="destino">
+
+<option value="rede_frente">Rede Frente</option>
+<option value="rede_lateral">Rede Lateral</option>
+<option value="rede_fundos">Rede Fundos</option>
+<option value="rede_servidao">Rede Servidão</option>
+<option value="ramal_comunitario">Ramal Comunitário</option>
+<option value="condominio">Condominial</option>
+<option value="elevatoria">Elevatória</option>
+<option value="interceptor">Interceptor</option>
+<option value="emissario">Emissário</option>
+<option value="fossa">Fossa Séptica</option>
+<option value="fossa_negra">Fossa Negra</option>
+<option value="sumidouro">Sumidouro</option>
+<option value="ceu_aberto">A Céu Aberto</option>
+<option value="corrego">Córrego</option>
+<option value="rio">Rio</option>
+<option value="galeria">Galeria</option>
+<option value="gap">GAP</option>
+<option value="sem_coleta">Sem Coleta</option>
+
+</select>
+
+</div>
+
+<div class="campo">
+<label>Economias</label>
+
+<select id="economias">
+<option>1</option>
+<option>2</option>
+<option>3</option>
+<option>4</option>
+<option>5</option>
+</select>
+
+</div>
+
+<div class="campo">
+<label>Moradores</label>
+
+<select id="moradores">
+<option>1</option>
+<option>2</option>
+<option>3</option>
+<option>4</option>
+<option>5</option>
+</select>
+
+</div>
+
+<div class="campo">
+<label>Desempregados</label>
+
+<select id="desempregados">
+<option>0</option>
+<option>1</option>
+<option>2</option>
+<option>3</option>
+</select>
+
+</div>
+
+<div class="campo">
+<label>Renda familiar</label>
+
+<input 
+id="renda"
+type="text"
+placeholder="R$ 0,00"
+oninput="formatarMoeda(this)"
+>
+
+</div>
+
+<div class="nav">
+
+<button onclick="nextTela(1)">
+Voltar
+</button>
+
+<button onclick="nextTela(3)">
+Próximo
+</button>
+
+</div>
+
+</div>
+
+<!-- TELA 3 -->
+<div class="tela" id="t3">
+
+<h3>Consumo</h3>
+
+<div class="campo">
+
+<label>Leitura inicial</label>
+
+<input id="li" type="number" min="0">
+<input id="di" type="date">
+
+</div>
+
+<div class="campo">
+
+<label>Leitura final</label>
+
+<input id="lf" type="number" min="0">
+<input id="df" type="date">
+
+</div>
+
+<div class="nav">
+
+<button onclick="nextTela(2)">
+Voltar
+</button>
+
+<button onclick="nextTela(4)">
+Próximo
+</button>
+
+</div>
+
+</div>
+
+<!-- TELA 4 -->
+<div class="tela" id="t4">
+
+<h3>Dados do Cliente</h3>
+
+<div class="campo">
+<label>Nome</label>
+<input id="cliente" type="text">
+</div>
+
+<div class="campo">
+<label>PDE / RGI / Fornecimento</label>
+<input id="ligacao_num" type="text">
+</div>
+
+<div class="campo">
+<label>Endereço</label>
+<input id="endereco" type="text">
+</div>
+
+<div class="campo">
+<label>Observações Técnicas</label>
+<textarea id="obs"></textarea>
+</div>
+
+<div class="nav">
+
+<button onclick="nextTela(3)">
+Voltar
+</button>
+
+<button onclick="calcular();nextTela(5)">
+Gerar análise
+</button>
+
+</div>
+
+</div>
+
+<!-- RESULTADO -->
+<div class="tela" id="t5">
+
+<h3>Resultado da análise</h3>
+
+<div id="resultado"></div>
+
+</div>
+
+<!-- SERVIÇOS -->
+<div class="tela" id="t6">
+
+<h3>📌 Serviços úteis</h3>
+
+<div class="box">
+
+<button onclick="window.open('https://www.gov.br','_blank')">
+🏛️ gov.br
+</button>
+
+<button onclick="window.open('https://cadunico.dataprev.gov.br','_blank')">
+📋 CadÚnico
+</button>
+
+<button onclick="window.open('https://agenciavirtual.sabesp.com.br','_blank')">
+💧 Sabesp
+</button>
+
+<button onclick="window.open('https://www.arsesp.sp.gov.br','_blank')">
+⚙️ Arsesp
+</button>
+
+<button onclick="window.open('https://www.procon.sp.gov.br','_blank')">
+🛒 Procon
+</button>
+
+<button onclick="window.open('https://www.cnj.jus.br','_blank')">
+⚖️ Justiça
+</button>
+
+</div>
+
+<div class="nav">
+
+<button onclick="nextTela(1)">
+⬅️ Voltar
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+function nextTela(n){
+
+document.querySelectorAll(".tela")
+.forEach(t=>t.classList.remove("ativa"));
+
+document.getElementById("t"+n)
+.classList.add("ativa");
+
+}
+
+const tarifas={
+
+MC:{
+
+residencial_normal:{
+agua:[
+{l:10,v:16.82,f:true},
+{l:20,v:2.63},
+{l:50,v:6.57},
+{l:Infinity,v:7.24}
+],
+
+esgoto:[
+{l:10,v:16.82,f:true},
+{l:20,v:2.63},
+{l:50,v:6.57},
+{l:Infinity,v:7.24}
+]
+},
+
+residencial_social:{
+agua:[
+{l:10,v:5.70,f:true},
+{l:20,v:0.99},
+{l:30,v:3.48},
+{l:50,v:4.97},
+{l:Infinity,v:5.49}
+],
+
+esgoto:[
+{l:10,v:5.70,f:true},
+{l:20,v:0.99},
+{l:30,v:3.48},
+{l:50,v:4.97},
+{l:Infinity,v:5.49}
+]
+},
+
+residencial_vulneravel:{
+agua:[
+{l:10,v:2.00,f:true},
+{l:20,v:0.50},
+{l:Infinity,v:2.00}
+],
+
+esgoto:[
+{l:10,v:2.00,f:true},
+{l:20,v:0.50},
+{l:Infinity,v:2.00}
+]
+},
+
+comercial:{
+agua:[
+{l:10,v:28.00,f:true},
+{l:20,v:7.50},
+{l:50,v:11.00},
+{l:Infinity,v:13.00}
+],
+
+esgoto:[
+{l:10,v:28.00,f:true},
+{l:20,v:7.50},
+{l:50,v:11.00},
+{l:Infinity,v:13.00}
+]
+},
+
+comercial_ongs:{
+agua:[
+{l:10,v:20.00,f:true},
+{l:20,v:5.50},
+{l:50,v:8.00},
+{l:Infinity,v:9.50}
+],
+
+esgoto:[
+{l:10,v:20.00,f:true},
+{l:20,v:5.50},
+{l:50,v:8.00},
+{l:Infinity,v:9.50}
+]
+},
+
+industrial:{
+agua:[
+{l:10,v:35.00,f:true},
+{l:20,v:9.00},
+{l:50,v:13.00},
+{l:Infinity,v:15.00}
+],
+
+esgoto:[
+{l:10,v:35.00,f:true},
+{l:20,v:9.00},
+{l:50,v:13.00},
+{l:Infinity,v:15.00}
+]
+},
+
+orgaos_publicos:{
+agua:[
+{l:10,v:24.00,f:true},
+{l:20,v:6.50},
+{l:50,v:10.00},
+{l:Infinity,v:12.00}
+],
+
+esgoto:[
+{l:10,v:24.00,f:true},
+{l:20,v:6.50},
+{l:50,v:10.00},
+{l:Infinity,v:12.00}
+]
+}
+
+}
+
+};
+
+function calc(c,tabela){
+
+let total=0;
+let atual=0;
+
+for(let faixa of tabela){
+
+if(faixa.f){
+
+total+=faixa.v;
+atual=10;
+continue;
+
+}
+
+if(c>atual){
+
+let uso=Math.min(c,faixa.l)-atual;
+
+if(uso>0){
+
+total+=uso*faixa.v;
+
+}
+
+atual=faixa.l;
+
+}
+
+}
+
+return total;
+
+}
+
+function formatarMoeda(campo){
+
+let v=campo.value.replace(/\D/g,'');
+
+v=(v/100).toFixed(2)+'';
+
+v=v.replace(".",",");
+
+v=v.replace(/\B(?=(\d{3})+(?!\d))/g,".");
+
+campo.value='R$ '+v;
+
+}
+
+function calcular(){
+
+let mor=Math.max(
+1,
++document.getElementById("moradores").value||1
+);
+
+let eco=Math.max(
+1,
++document.getElementById("economias").value||1
+);
+
+let des=
++document.getElementById("desempregados").value||0;
+
+let renda=
+document.getElementById("renda").value||"";
+
+let li=
++document.getElementById("li").value||0;
+
+let lf=
++document.getElementById("lf").value||0;
+
+let regional=
+document.getElementById("regional").value;
+
+let ligacao=
+document.getElementById("ligacao").value;
+
+let categoria=
+document.getElementById("categoria").value;
+
+let dest=
+document.getElementById("destino").value;
+
+let cliente=
+document.getElementById("cliente").value||"-";
+
+let ligacaoNum=
+document.getElementById("ligacao_num").value||"-";
+
+let endereco=
+document.getElementById("endereco").value||"-";
+
+let obs=
+document.getElementById("obs").value||"-";
+
+let consumo=lf-li;
+
+if(consumo<=0){
+
+consumo=mor*5;
+
+}
+
+let consumoPessoa=consumo/mor;
+
+let consumoEco=consumo/eco;
+
+let tabelaRegional=
+tarifas[regional] || tarifas.MC;
+
+let tabela=
+tabelaRegional[categoria]
+|| tabelaRegional.residencial_normal;
+
+let agua=0;
+let esgoto=0;
+
+if(ligacao==="agua"){
+
+agua=calc(consumoEco,tabela.agua);
+
+}
+
+if(ligacao==="agua_esgoto"){
+
+agua=calc(consumoEco,tabela.agua);
+
+if(
+dest.includes("rede")
+||dest==="condominio"
+||dest==="elevatoria"
+||dest==="interceptor"
+||dest==="emissario"
+||dest==="ramal_comunitario"
+){
+
+esgoto=calc(consumoEco,tabela.esgoto);
+
+}
+
+}
+
+if(ligacao==="esgoto"){
+
+esgoto=calc(consumoEco,tabela.esgoto);
+
+}
+
+let alertas=[];
+
+if(consumoPessoa>15){
+
+alertas.push("🔴 Possível vazamento.");
+
+}else if(consumoPessoa>10){
+
+alertas.push("🟡 Consumo acima da média.");
+
+}else{
+
+alertas.push("🟢 Consumo dentro da média.");
+
+}
+
+if(
+(Number(renda.replace(/\D/g,""))<200000)
+||des>0
+){
+
+alertas.push("💙 Possível enquadramento social.");
+
+}
+
+if(
+dest==="fossa"
+||dest==="fossa_negra"
+||dest==="sumidouro"
+||dest==="ceu_aberto"
+||dest==="corrego"
+||dest==="rio"
+||dest==="galeria"
+||dest==="gap"
+||dest==="sem_coleta"
+){
+
+alertas.push("🚫 Sem coleta pública de esgoto.");
+
+}
+
+let inconsistencias=[];
+
+if(consumoPessoa<3){
+
+inconsistencias.push(
+"Possível subutilização."
+);
+
+}
+
+if(eco>mor){
+
+inconsistencias.push(
+"Economias superiores ao número de moradores."
+);
+
+}
+
+if(consumoEco>25){
+
+inconsistencias.push(
+"Consumo elevado por economia."
+);
+
+}
+
+if(obs!=="-"){
+
+inconsistencias.push(obs);
+
+}
+
+document.getElementById("resultado").innerHTML=`
+
+<div class="box">
+
+<div class="cabecalho-relatorio">
+
+<img 
+src="logo.png"
+class="logo-relatorio"
+>
+
+<div>
+
+<h2>
+ÁGUA JUSTA
+</h2>
+
+<p>
+ANÁLISE PRELIMINAR
+</p>
+
+</div>
+
+</div>
+
+<div class="carimbo">
+ESTILO PROCESSO
+</div>
+
+</div>
+
+<div class="box">
+<b>📅 Data:</b>
+${new Date().toLocaleDateString('pt-BR')}
+</div>
+
+<div class="box">
+<b>👤 Cliente:</b>
+${cliente}
+</div>
+
+<div class="box">
+<b>🔗 Ligação:</b>
+${ligacaoNum}
+</div>
+
+<div class="box">
+<b>📍 Endereço:</b>
+${endereco}
+</div>
+
+<div class="box">
+<b>🌎 Regional:</b>
+${regional}
+</div>
+
+<div class="box">
+<b>💧 Consumo:</b>
+${consumo} m³
+</div>
+
+<div class="box">
+<b>👥 Por pessoa:</b>
+${consumoPessoa.toFixed(2)} m³
+</div>
+
+<div class="box">
+<b>🏠 Por economia:</b>
+${consumoEco.toFixed(2)} m³
+</div>
+
+<div class="box">
+<b>🚰 Tipo de ligação:</b>
+${ligacao}
+</div>
+
+<div class="box">
+<b>📂 Categoria:</b>
+${categoria.replace(/_/g," ")}
+</div>
+
+<div class="box">
+<b>🚽 Destino:</b>
+${dest.replace(/_/g," ")}
+</div>
+
+<div class="box">
+<b>💧 Água:</b>
+R$ ${agua.toFixed(2)}
+</div>
+
+<div class="box">
+<b>🚽 Esgoto:</b>
+R$ ${esgoto.toFixed(2)}
+</div>
+
+<div class="box verde">
+
+<b>
+💰 Total estimado:
+R$ ${(agua+esgoto).toFixed(2)}
+</b>
+
+</div>
+
+<div class="box amarelo">
+
+⚖️ Valores estimativos para apoio preliminar.
+
+</div>
+
+<div class="box">
+
+<b>⚠️ ALERTAS</b><br><br>
+
+${alertas.map(a=>"• "+a).join("<br>")}
+
+</div>
+
+<div class="box vermelho">
+
+<b>📌 POSSÍVEIS INCONSISTÊNCIAS</b><br><br>
+
+${inconsistencias.map(i=>"• "+i).join("<br>")}
+
+</div>
+
+<div class="pixbox">
+
+<b>
+💚 Apoie o Projeto Água Justa
+</b><br><br>
+
+<div id="pixcode">
+
+00020101021126810014BR.GOV.BCB.PIX2559pix-qr.mercadopago.com/instore/ol/v2/3Z9Uw36kNzTngKrqqG5UPL5204000053039865802BR5920INSTITUTO AGUA JUSTA6009SAO PAULO62080504mpis63043E4B
+
+</div>
+
+<button onclick="copiarPix()">
+
+💙 Copiar PIX
+
+</button>
+
+</div>
+
+<div class="bloqueio">
+
+🔒 O RELATÓRIO COMPLETO
+SÓ PODE SER BAIXADO
+APÓS O PAGAMENTO
+DE R$ 4,99.
+
+</div>
+
+<button onclick="window.print()">
+
+📄 Imprimir análise
+
+</button>
+
+`;
+
+}
+
+function copiarPix(){
+
+let texto=
+document.getElementById("pixcode").innerText;
+
+navigator.clipboard.writeText(texto)
+
+.then(()=>{
+
+alert("PIX copiado!");
+
+})
+
+.catch(()=>{
+
+let area=document.createElement("textarea");
+
+area.value=texto;
+
+document.body.appendChild(area);
+
+area.select();
+
+document.execCommand("copy");
+
+document.body.removeChild(area);
+
+alert("PIX copiado!");
+
+});
+
+}
+
+</script>
+
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('./service-worker.js')
+    .then(() => console.log('Service Worker registrado'))
+    .catch(err => console.log('Erro no Service Worker', err));
+}
+</script>
+
+</body>
+</html>
